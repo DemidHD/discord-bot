@@ -20,6 +20,7 @@ class CMDUsers(commands.Cog):
 
     @commands.command()
     async def bot(self, ctx):
+        """Состояние бота"""
         return await ctx.reply('бот на месте!')
 
     @commands.command()
@@ -42,8 +43,7 @@ class CMDUsers(commands.Cog):
             url = "https://chatgpt-api7.p.rapidapi.com/ask"
             payload = {
                 "query": f'{arg}',
-                "wordLimit": "4096",
-                "conversationId": "<Id from 1st response>"
+                "wordLimit": "4096"
             }
             headers = {
                 "content-type": "application/json",
