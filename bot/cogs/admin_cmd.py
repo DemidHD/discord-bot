@@ -17,7 +17,5 @@ class CMDAdmin(commands.Cog):
         await ctx.message.delete()
 
 
-
-
 def setup(bot):
     bot.add_cog(CMDAdmin(bot))

@@ -1,5 +1,6 @@
 import aiohttp
 import disnake
+
 from disnake.ext import commands
 
 from bot.configs.main_config import RapidAPI_Key
@@ -33,32 +34,6 @@ class CMDUsers(commands.Cog):
             date_str = disnake.utils.format_dt(member.joined_at, "R")
             return await ctx.send(f"{member} присоединился {date_str}")
 
-    @commands.command()
-    async def gpt(self, inter: disnake.MessageInteraction, arg: str = None):
-        """ChatGPT"""
-        messages = await inter.message.reply("❇|Подождите, ваш запрос обрабатывается!")
-        try:
-            if arg is None:
-                return await messages.edit("📥| Введите параметры!")
-            url = "https://chatgpt-api7.p.rapidapi.com/ask"
-            payload = {
-                "query": f'{arg}',
-                "wordLimit": "4096"
-            }
-            headers = {
-                "content-type": "application/json",
-                "X-RapidAPI-Key": RapidAPI_Key,
-                "X-RapidAPI-Host": "chatgpt-api7.p.rapidapi.com"
-            }
-            async with aiohttp.ClientSession() as session:
-                async with session.post(url, json=payload, headers=headers) as response:
-                    await messages.edit(lines[0])
-                    for line in lines:
-                        await messages.edit(line)
-                    result = await response.json()
-                    return await messages.edit(result['response'])
-        except Exception as e:
-            return await messages.edit(f'Произошла ошибка на стороне ChatGPT!\n\n>{e}')
 
     @commands.command()
     async def commands(self, ctx):
@@ -75,7 +50,6 @@ class CMDUsers(commands.Cog):
                 inline=False  # Будет выводиться в столбик, если True - в строчку
             )
         return await ctx.send(embed=embed)
-
 
 
 def setup(bot):

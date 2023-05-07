@@ -4,7 +4,7 @@ import os
 import disnake
 from disnake.ext import commands
 
-from bot.configs.main_config import token
+from configs.main_config import token
 
 
 bot = commands.Bot(
