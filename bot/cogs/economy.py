@@ -31,12 +31,11 @@ class Economy(commands.Cog):
             await self.db.update_money(member, amount, 0)
             embed = disnake.Embed(color=0x2F3136, title=f'Выдача денег пользователю - {member}')
             embed.description = f'{interaction.author.mention} выдал {member.mention} {amount} денег.'
-            embed.set_thumbnail(url=member.display_avatar.url)
         else:
             await self.db.update_money(member, 0, amount)
             embed = disnake.Embed(color=0x2F3136, title=f'Выдача премиума пользователю - {member}')
             embed.description = f'{interaction.author.mention} выдал {member.mention} {amount} премиума.'
-            embed.set_thumbnail(url=member.display_avatar.url)
+        embed.set_thumbnail(url=member.display_avatar.url)
         await interaction.response.send_message(embed=embed)
 
 

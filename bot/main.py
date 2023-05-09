@@ -5,7 +5,7 @@ import disnake
 import gatey_sdk
 from disnake.ext import commands
 
-from configs.main_config import token
+from configs.main_config import DISCORD_BOT_TOKEN
 
 
 bot = commands.Bot(
@@ -43,7 +43,7 @@ async def reload(ctx, extension):
     bot.reload_extension(f'cogs.{extension}')
 
 
-for filename in os.listdir('cogs'):
+for filename in os.listdir(path='bot/cogs'):
     if filename.endswith('.py') and filename != '__init__.py':
         bot.load_extension(f'cogs.{filename[:-3]}')
 
@@ -55,4 +55,4 @@ async def on_command_error(ctx, error) -> None:
 
 
 if __name__ == '__main__':
-    bot.run(token)
+    bot.run(DISCORD_BOT_TOKEN)
