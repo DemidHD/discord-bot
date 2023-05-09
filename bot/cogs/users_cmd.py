@@ -1,10 +1,5 @@
-import aiohttp
 import disnake
-
 from disnake.ext import commands
-
-from bot.configs.main_config import RapidAPI_Key
-from bot.utils.generate_line import lines
 
 
 class CMDUsers(commands.Cog):
@@ -14,18 +9,21 @@ class CMDUsers(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+
     @commands.Cog.listener()
-    async def on_ready(self):
+    async def on_ready(self) -> None:
         """Сообщает о запуске бота"""
         print(f'Bot {self.bot.user} is ready to work!')
 
+
     @commands.command()
-    async def bot(self, ctx):
+    async def bot(self, ctx) -> None:
         """Состояние бота"""
         return await ctx.reply('бот на месте!')
 
+
     @commands.command()
-    async def joined(self, ctx, member: disnake.Member = None):
+    async def joined(self, ctx, member: disnake.Member = None) -> None:
         """Говорит, когда участник присоединился"""
         if member is None:
             return await ctx.reply(f'Укажите пользователя')
@@ -36,7 +34,7 @@ class CMDUsers(commands.Cog):
 
 
     @commands.command()
-    async def commands(self, ctx):
+    async def commands(self, ctx) -> None:
         embed = disnake.Embed(
             title="Навигация по командам",
             description="Здесь ты сможешь найти доступные команды и их описание"

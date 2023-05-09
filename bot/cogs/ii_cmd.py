@@ -3,8 +3,8 @@ import disnake
 import requests
 from disnake.ext import commands
 
-from configs.main_config import API_KEY, RapidAPI_Key
-
+from configs.main_config import API_KEY
+from services.services import get_conf_for_gpt
 
 
 class CMDUserIi(commands.Cog):
@@ -15,34 +15,23 @@ class CMDUserIi(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def chat(self, inter: disnake.MessageInteraction, arg: str = None):
+    async def chat(self, inter: disnake.MessageInteraction, arg: str = None) -> None:
         messages = await inter.message.reply("❇|Подождите, ваш запрос обрабатывается!")
-        try:
-            if arg is None:
-                return await messages.edit("📥| Введите параметры!")
-            url = f"https://api.betterapi.net/youdotcom/chat?message={arg}&key={API_KEY}"  # set api url
-            json = requests.get(url).json()  # load json form api
-            await messages.edit(json["message"])  # print message response
-        except Exception:
-            return await messages.edit('Ошибка на стороне бота')
+        if arg is None:
+            return await messages.edit("📥| Введите параметры!")
+        url = f"https://api.betterapi.net/youdotcom/chat?message={arg}&key={API_KEY}"  # set api url
+        json = requests.get(url).json()  # load json form api
+        await messages.edit(json["message"])  # print message response
+
 
     @commands.command()
-    async def gpt(self, inter: disnake.MessageInteraction, arg: str = None):
+    async def gpt(self, inter: disnake.MessageInteraction, arg: str = None) -> None:
         """ChatGPT"""
         messages = await inter.message.reply("❇|Подождите, ваш запрос обрабатывается!")
         try:
             if arg is None:
                 return await messages.edit("📥| Введите параметры!")
-            url = "https://chatgpt-api7.p.rapidapi.com/ask"
-            payload = {
-                "query": f'{arg}',
-                "wordLimit": "4096"
-            }
-            headers = {
-                "content-type": "application/json",
-                "X-RapidAPI-Key": RapidAPI_Key,
-                "X-RapidAPI-Host": "chatgpt-api7.p.rapidapi.com"
-            }
+            url, payload, headers = await get_conf_for_gpt(arg)
             async with aiohttp.ClientSession() as session:
                 async with session.post(url, json=payload, headers=headers) as response:
                     result = await response.json()
