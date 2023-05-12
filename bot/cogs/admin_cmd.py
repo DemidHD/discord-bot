@@ -6,6 +6,7 @@ class CMDAdmin(commands.Cog):
     """
     Команды для администрации бота
     """
+
     def __init__(self, bot):
         self.bot = bot
 
@@ -31,7 +32,6 @@ class CMDAdmin(commands.Cog):
             await interaction.channel.purge(limit=amount + 1)
         except Exception as e:
             print(e)
-
 
 
 def setup(bot):

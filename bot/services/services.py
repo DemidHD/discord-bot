@@ -1,9 +1,11 @@
+import aiohttp
+
 from configs.main_config import RapidAPI_Key
 
 
 async def get_conf_for_gpt(arg: str) -> dict:
     """
-    Возвращает конфиги для chatgpt-api от rapid-api
+    Запрос к rapid api
     """
     url = "https://chatgpt-api7.p.rapidapi.com/ask"
     payload = {
@@ -15,5 +17,7 @@ async def get_conf_for_gpt(arg: str) -> dict:
         "X-RapidAPI-Key": RapidAPI_Key,
         "X-RapidAPI-Host": "chatgpt-api7.p.rapidapi.com"
     }
-    return url, payload, headers
-
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, json=payload, headers=headers) as response:
+            result = await response.json()
+    return result

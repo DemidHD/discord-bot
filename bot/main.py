@@ -7,12 +7,10 @@ from disnake.ext import commands
 
 from configs.main_config import DISCORD_BOT_TOKEN
 
-
 bot = commands.Bot(
     command_prefix='/',
     intents=disnake.Intents.all()
 )
-
 client = gatey_sdk.Client(
     transport=gatey_sdk.PrintTransport,
     exceptions_capture_code_context=False

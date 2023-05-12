@@ -31,14 +31,10 @@ class CMDUserIi(commands.Cog):
         try:
             if arg is None:
                 return await messages.edit("📥| Введите параметры!")
-            url, payload, headers = await get_conf_for_gpt(arg)
-            async with aiohttp.ClientSession() as session:
-                async with session.post(url, json=payload, headers=headers) as response:
-                    result = await response.json()
-                    return await messages.edit(result['response'])
+            result = await get_conf_for_gpt(arg)
+            return await messages.edit(result['response'])
         except Exception as e:
             return await messages.edit(f'Произошла ошибка на стороне ChatGPT!\n\n>{e}')
-
 
 
 def setup(bot):
