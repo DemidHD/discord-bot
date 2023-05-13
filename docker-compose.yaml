@@ -4,8 +4,6 @@ services:
   discord-bot:
     build: .
     command: python bot/main.py
-    environment:
-      - RapidAPI_Key=$RapidAPI_Key
-      - API_KEY=$API_KEY
-      - DISCORD_BOT_TOKEN=$DISCORD_BOT_TOKEN
+    env_file:
+      - ./.env
     restart: always

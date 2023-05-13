@@ -7,7 +7,7 @@ class UsersDataBase:
     Database
     """
     def __init__(self):
-        self.name = 'dbs/users.db'
+        self.name = 'bot/dbs/users.db'
 
     async def create_table(self):
         """Создание таблицы"""

@@ -1,6 +1,6 @@
 import aiohttp
 
-from configs.main_config import RapidAPI_Key
+from configs.main_config import RAPID_API_KEY
 
 
 async def get_conf_for_gpt(arg: str) -> dict:
@@ -14,7 +14,7 @@ async def get_conf_for_gpt(arg: str) -> dict:
     }
     headers = {
         "content-type": "application/json",
-        "X-RapidAPI-Key": RapidAPI_Key,
+        "X-RapidAPI-Key": RAPID_API_KEY,
         "X-RapidAPI-Host": "chatgpt-api7.p.rapidapi.com"
     }
     async with aiohttp.ClientSession() as session:
