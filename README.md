@@ -14,3 +14,8 @@ $ pip install -r requirements.txt
 $ cd bot
 $ python main.py
 ```
+
+## Docker-compose 🎈
+```
+$ docker-compose up --build
+```
